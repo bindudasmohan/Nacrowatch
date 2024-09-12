@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><style>
+    .complain-container {
+        font-family: "Nunito", sans-serif;
+        padding: 1rem;
+        margin: 1rem;
+    }
+</style>
+
+{% extends "MNCSApp/master.html" %}
+
+{% load static %}
+
+{% block header %} <title>All Registered Complaints</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-2">
+  <ul class="nav flex-column bg-warning h-100" style="position: fixed;">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/ManageInvestigators/">Investigators</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/ManageReports/">Crime Reports</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Allocate_Investigators/">Allocate Investigators</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/ManageReporters/">Manage Reporter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/View_Feedback/">View Feedbacks</a>
+      </li>
+    </ul>
+</div>
+<div class="col">
+    <div class="container complain-container">
+        <table class="table">
+    <thead>
+      <tr class="my-3">
+        <th>Name </th>
+        <th>Office Code</th>
+          <th>Email</th>
+        <th>District</th>
+          <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in Reports %}
+        <tr>
+            <td>{{ item.Nick_Name }}</td>
+            <td>{{ item.Office_Code }}</td>
+            <td>{{ item.Email }}</td>
+            <td>{{ item.District }}</td>
+            <td>{{ item.State }}</td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+    </div>
+</div>
+</div>
+{% endblock %}
+

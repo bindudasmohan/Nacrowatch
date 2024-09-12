@@ -1,0 +1,189 @@
+<style>
+  .complain-container {
+        font-family: "Nunito", sans-serif;
+        padding: 1rem;
+        margin: 1rem;
+    }
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  $postfix: if($infix != "", $infix + "-down", "");
+
+  @include media-breakpoint-down($breakpoint) {
+    .modal-fullscreen#{$postfix} {
+      width: 100vw;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+
+      .modal-content {
+        height: 100%;
+        border: 0;
+        @include border-radius(0);
+      }
+
+      .modal-header,
+      .modal-footer {
+        @include border-radius(0);
+      }
+
+      .modal-body {
+        overflow-y: auto;
+      }
+    }
+  }
+}
+    .detail-container {
+        font-family: "Nunito", sans-serif;
+        color: crimson;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+
+    .detail-container {
+        position: relative;
+
+    }
+
+    .fa {
+        font-size: 40px;
+        color: mintcream;
+    }
+
+    .fa:hover {
+        cursor: hand;
+    }
+
+    #form-container {
+        position: absolute;
+        margin: 1.5rem;
+        background-color: #8eaf5b;
+        width: 80%;
+        top: 50px;
+        left: 100px;
+        z-index: 10;
+        border-radius: 0.6rem;
+
+    }
+</style>
+
+{% extends "MNCSApp/master.html" %}
+
+
+{% block header %}
+    <title>Complain Detail</title>
+    {% load static %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-2">
+    <ul class="nav flex-column bg-warning h-100" style="position: fixed;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/ManageInvestigators/">Investigators</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ManageReports/">Crime Reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Allocate_Investigators/">Allocate Investigators</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ManageReporters/">Manage Reporter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/View_Feedback/">View Feedbacks</a>
+        </li>
+      </ul>
+  </div>
+  <div class="col">
+
+
+<main>
+  <div class="container py-4">
+   
+{% for object in details %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Reporter ID: {{ object.Reporter_ID_id }}</h1>
+        <p class="col-md-8 fs-4">{{ object.Report_text }}</p>
+        <h2 >Time : {{ object.Date_and_time }}</h2>
+      </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>Image Proof</h2>
+          <img style="height: 200px;width: 250px" class="img img thumbnail" src="{% static 'media/' %}{{object.Proof_Image}}" alt="Error
+Loading">
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-light border rounded-3">
+          <h2>Video Proof</h2>
+                <video style="height: 200px;width: 400px" controls="controls" class="img img thumbnail" src="{% static 'media/' %}{{object.Proof_clip}}" alt="Error
+Loading" type="video/mp4"></video>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+<br>
+
+
+
+            <div class="container complain-container">
+                <h2>HISTORY OF CASE INVESTIGATION AND DETAILS</h2>
+      <table class="table">
+    <thead>
+      <tr class="my-3">
+        <th>CASE ID </th>
+        <th>STATUS</th>
+          <th>INVESTIGATOR ID</th>
+           <th>INVESTIGATOR NAME</th>
+           <th>INVESTIGATOR OFFICE CODE</th>
+       <th>INVESTIGATOR REPORT</th>
+          <th>DATE AND TIME</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     {% for item in Investigator %}
+        <tr>
+            <td>{{ item.CASE_ID }}</td>
+            <td>{{ item.Status }}</td>
+            <td>{{ item.Investigator_ID }}</td>
+            <td>{{ item.Investigator_Name }}</td>
+            <td>{{ item.Investigator_Office_Code }}</td>
+            <td>{{ item.Investigator_Report }}</td>
+            <td>{{ item.Date_and_time }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; 2022
+    </footer>
+  </div>
+</main>
+<script>
+
+</script>
+
+</div>
+</div>
+{% endblock %}
